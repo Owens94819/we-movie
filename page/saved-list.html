@@ -6,7 +6,7 @@
 
    <div class="saved-list">
       <?for-each: res, 100; movie?>
-      <?console-log: (movie)?>
+      <?console-log: movie?>
          <?eval: len+=1 ?>
          <?html-element: "a", {class:"saved-wrapper", href:"./#/info?"+btoa(api_url("/info/"+movie.id))} ?>
             <div class="image">
@@ -18,7 +18,7 @@
                            <b>
                               <?print: response.rating?>
                               <sub style="opacity: 0.7;">(
-                                 <?print: response.ratingCount?>&nbsp;votes)
+                                 <?print: num(response.ratingCount)?>&nbsp;votes)
                               </sub>
                            </b>
                         <?else?>

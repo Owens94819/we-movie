@@ -204,6 +204,14 @@ function sanitize(e) {
     return sanitize.elm.innerText
 }
 
+function num(e){
+    e=Number(e)||0
+e=e.toLocaleString().split(',')
+var dg =e.shift(0);
+var s=num.locale[e.length]||num.locale[4]
+return dg+s.trim();
+}
+num.locale=[' ','k','m', 'b','b+']
 sideBar.bar=document.querySelector('side-bar')
 sanitize.elm = document.createElement('span')
 
