@@ -144,7 +144,20 @@
     <script src="js/Storage.js"></script>
     <!-- <base href=" http://localhost:2000"> -->
     <script>
+        //  document.baseURI=location.href
         window.movie=new Movie();
+    //     d=movie.getById("6d6f7669652d4a6f686e205769636b20436861707465722033205061726162656c6c756d2d2d686d70342e68746d");
+    //     d.then(async e=>{
+    // console.log(e.getJson());
+
+    // d=await e.downloads.getLowQuality()
+    // console.log(d);
+
+    // d= await d[0].getSources()
+    //         console.log(d);
+    //     })
+
+
         function api_url(path) {
             if (path.match(/^[a-z]+:/i)) {
                 return path
@@ -197,6 +210,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <base href="https://api-pe5f.onrender.com/my-google-drive/ui"> -->
 
     <!-- creates a title tag
     <title>...</title>
@@ -212,7 +226,7 @@
         <article id="article">
             <progress-bar></progress-bar>
             <header>
-                <span onclick="location.href='/#/'">WeMovie</span>
+                <span onclick="location.href='./#/'">WeMovie</span>
                 <div>
                     <div class="ui icon input mini ">
                         <input type="search" placeholder="Search movies..." style="border-color: #85b7d9;"
@@ -258,14 +272,14 @@
                     </svg>
                 </div>
                 <div class="ui items divided">
-                    <a class="item" href="/#/movies">Latest movies</a>
-                    <a class="item" href="/#/updated-movies">Updated movies</a>
-                    <a class="item" href="/#/top-rated">Top rated movies</a>
-                    <a class="item" href="/#/imdb-250">IMDB top 250</a>
-                    <a class="item" href="/#/saved-list">Saved list</a>
-                    <a class="item" href="/#/report-issues">Report issues</a>
-                    <a class="item" xhref="/#/report-issues" onclick="document.body.requestFullscreen()">Enable fullscreen</a>
-                    <a class="item" href="/#/">Home page</a>
+                    <a class="item" href="./#/movies">Latest movies</a>
+                    <a class="item" href="./#/updated-movies">Updated movies</a>
+                    <a class="item" href="./#/top-rated">Top rated movies</a>
+                    <a class="item" href="./#/imdb-250">IMDB top 250</a>
+                    <a class="item" href="./#/saved-list">Saved list</a>
+                    <a class="item" href="./#/report-issues">Report issues</a>
+                    <a class="item" onclick="document.body.requestFullscreen()">Enable fullscreen</a>
+                    <a class="item" href="./#/">Home page</a>
                 </div>
             </div>
         </side-bar>

@@ -52,24 +52,24 @@
                             <?html-element: 'button',{class:'ui button primary dropdown simple'}?>
                             Instant download
                             <div class="menu" tabindex="-1">
-                            <?html-element: 'a',{href:"#/download/source|"+btoa(api_url("/download/direct/source/0/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            <?html-element: 'a',{href:"./#/download/source|"+btoa(api_url("/download/direct/source/0/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
                             420p
                             <?end?>
-                            <?html-element: 'a',{href:"#/download/source|"+btoa(api_url("/download/direct/source/1/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            <?html-element: 'a',{href:"./#/download/source|"+btoa(api_url("/download/direct/source/1/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
                             720p
                             <?end?>
                             </div>
                             <?end?>
                             <div class="or"></div>
-                            <?html-element: 'a',{href:"#/info?"+btoa(movie.id),class:'ui button positive'}?>See more
+                            <?html-element: 'a',{href:"./#/info?"+btoa(movie.id),class:'ui button positive'}?>See more
                             <?end?>
                         </div>
                     </div>
                     <div class="extra info" style="margin-top: 4px;">
-                        <?html-element: 'a',{href:"#/ref?"+btoa(movie.meta['imdb-profile'])}?>imdb&nbsp;profile
+                        <?html-element: 'a',{href:"./#/ref?"+btoa(movie.meta['imdb-profile'])}?>imdb&nbsp;profile
                         <?end?>
                         |
-                        <?html-element: 'a',{href:"#/ref?"+btoa(movie['origin'])}?>fzmovies&nbsp;profile
+                        <?html-element: 'a',{href:"./#/ref?"+btoa(movie['origin'])}?>fzmovies&nbsp;profile
                         <?end?>
                     </div>
                     <div class="extra content" style="display: flex;align-items: center;justify-content: space-between;">

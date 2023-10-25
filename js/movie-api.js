@@ -167,7 +167,7 @@ try {
         var recommended
         var rating;
         this.year = e.year || new Date(e.datePublished).getFullYear()
-        this.imdbProfile = e.meta['imdb-profile'] || ""
+        this.imdbProfile = e['imdb-profile']||e.meta['imdb-profile'] || ""
         this.description = e.description || e.plot
         this.imageThumb = e['image-thumb'] || ""
         this.imdbTitle = e['imdb-title'] || ""
@@ -258,12 +258,17 @@ try {
         }
 
         function res(name, i) {
-            return function (e) {
-                return e.json().then(function (res) {
+            return function (res) {
+                // return new Promise(function (r) {
                     eval("!" + name + " && (" + name + " = res[0].files[i]," + name + ".id1=i)");
-                })
+                    // return e
+                // })
+                // return e.then(function (res) {
+                //     eval("!" + name + " && (" + name + " = res[0].files[i]," + name + ".id1=i)");
+                // })
             }
         }
+
         function prop(name) {
             return function () {
                 return new Promise(function (r) {
@@ -272,10 +277,17 @@ try {
             }
         }
 
+        var lwReq=fetch(joinUrl(api, "info/downloads/low/" + e.id))
+        .then(function (e) {
+            return e.json();
+        })
         /***@test */
-        resolver(/**fetch(joinUrl(api, 'downloads/info/low')) ||**/ fetch(joinUrl(api, "info/downloads/low/" + e.id)), this.downloads, { getLowQuality: prop("low") }, res('low', 0))
+        resolver(/**fetch(joinUrl(api, 'downloads/info/low')) ||**/ lwReq, this.downloads, { getLowQuality: prop("low") }, res('low', 0))
 
         var hdReq = /**new Promise(e => { }) ||**/ fetch(joinUrl(api, "info/downloads/hd/" + e.id))
+        .then(function (e) {
+            return e.json();
+        })
         resolver(hdReq, this.downloads, { getStandardQuality: prop("md") }, res('md', 0))
         resolver(hdReq, this.downloads, { getHdQuality: prop("hd") }, res('hd', 1))
 
@@ -413,14 +425,15 @@ try {
         }
 
         this.api = api
-        this.getList = function (id) {
-            id=encodeURIComponent(id);
-            var req = joinUrl(api, "info/" + id)
+        this.getList = function (CatID) {
+            var req = joinUrl(api, "movies/list?pg=1&by=date&catID=" + CatID)
+
             req = fetch(req)
             return new List(req)
         }
-        this.getById = function (arguments) {
-            var req = joinUrl(api, "movies/list?pg=1&by=date&catID=" + CatID)
+        this.getById = function (id) {
+            id=encodeURIComponent(id);
+            var req = joinUrl(api, "info/" + id)
             req = fetch(req)
             return req
             .then(function(e) { return e.json()})
@@ -446,7 +459,6 @@ try {
     MovieApi.BOLLY = 1;
     MovieApi.HOLLY = 2;
     MovieApi.DHOLLY = 3;
-
     self.MovieApi =
         self.FZMovieApi =
         self.FZMovie =

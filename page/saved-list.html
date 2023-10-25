@@ -8,7 +8,7 @@
       <?for-each: res, 100; movie?>
       <?console-log: (movie)?>
          <?eval: len+=1 ?>
-         <?html-element: "a", {class:"saved-wrapper", href:"#/info?"+btoa(api_url("/info/"+movie.id))} ?>
+         <?html-element: "a", {class:"saved-wrapper", href:"./#/info?"+btoa(api_url("/info/"+movie.id))} ?>
             <div class="image">
                <div class="imdb-rating node">
                   <?fetch: movie["imdb-rating"], {type:'json'}?>

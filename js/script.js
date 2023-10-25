@@ -10,7 +10,7 @@ atob = function () {
 }
 
 function href(e) {
-    location.href='#/'+e
+    location.href='./#/'+e
 }
 function per(v, n = 0) {
     if (v instanceof Array) {
@@ -75,7 +75,7 @@ function pgInit(res) {
 }
 function pgR() {
     if (MOVIE_LISTS.next) {
-        location.href = "#/movies?" + btoa(MOVIE_LISTS.next)
+        location.href = "./#/movies?" + btoa(MOVIE_LISTS.next)
     }
 return
     //console.log(xjs);
@@ -94,7 +94,7 @@ return
 }
 function pgL() {
     if(MOVIE_LISTS.prev) {
-        location.href = "#/movies?" + btoa(MOVIE_LISTS.prev)
+        location.href = "./#/movies?" + btoa(MOVIE_LISTS.prev)
     }
     var m = pg.range.style.minWidth
     var rw = gw(pg.range.style.width, m)
