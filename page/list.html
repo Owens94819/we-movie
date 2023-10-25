@@ -101,14 +101,14 @@
                         </span>
                         <?html-element: 'a', {class:'ui button tiny blue loading basic', style:"font-size:10px",onclick:function(){watchLater(movie, this)}}; node?>
                         <?await: watchLaterStorage.has(movie.id)?>
-                        Watch later
+                        ...
                         <?then: e?>
                         <?eval: node.classList.remove('loading')?>
                         <?if: e?>
                         <?eval: node.classList.add('red')?>
                         unsave
                         <?else?>
-                        Save for later
+                        Save...
                         <?end?>
                         <?end?>
                         <?end?>
