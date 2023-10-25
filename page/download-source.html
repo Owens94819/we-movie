@@ -1,0 +1,11 @@
+<div class="pad">
+  <?fetch: query, {type:"json"}?>
+    Loading sources...
+  <?then: {response}?>
+    Almost there...
+    <??eval: alert(JSON.stringify(response))?>
+    <?eval: location.replace("#/download|"+btoa(response.file))?>
+  <?catch?>
+    Oops error, try reload this page again!
+  <?end?>
+</div>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" class="body">
+
+<head>
+    <link rel="stylesheet" href="lib/semantic/component/reset.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/button.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/card.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/grid.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/dropdown.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/icon.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/label.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/progress.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/loader.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/input.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/header.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/item.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/table.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/divider.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/image.min.css">
+    <link rel="stylesheet" href="lib/semantic/component/list.min.css">
+
+    <link rel="stylesheet" href="css/key-frames.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-2.css">
+    <link rel="stylesheet" href="css/menu.css">
+
+    <!-- routes / paths -->
+    <template path="/">
+        <?title: "Movies | Home"?>
+        <?use-template: "movies"?>
+    </template>
+    <template path="/ref">
+        <?title: "Movie | Redirecting"?>
+        <?use-template: "ref"?>
+    </template>
+    <template path="/info">
+        <?title: "Movie | Info"?>
+        <!-- <?console-log: query?> -->
+        <?eval: var url;url=query.match('http')&&query||api_url("/info/" +query)?>
+        <!-- <?eval:  url =api_url("/info")?> -->
+        <?fetch: url, {type:"json"}?>
+        <?use-template: loading?>
+        <?then:{response}?>
+        <?if:typeof response === "object"?>
+        <?eval: var movie=response?>
+        <?use-template: 'info'?>
+        <?else?>
+        <?use-template: "movieError"?>
+        <?end?>
+        <?catch?>
+        <?use-template: "movieError"?>
+        <?end?>
+    </template>
+    <template path="/info/more">
+        <?eval: var movie={}?>
+        <?eval: movie=JSON.parse(query)?>
+        <?title: "Movie | "+ movie.name?>
+        <?use-template: 'more-info'?>
+    </template>
+    <template path="/preview/image">
+        <?title: "Preview | Image"?>
+        <?eval: var src= query?>
+        <?use-template: 'preview-image'?>
+    </template>
+    <template path="preview/trailer">
+        <?title: "Movie | trailer"?>
+        <?use-template: "trailer"?>
+    </template>
+    <template path="/movies?">
+        <?title: "Movies | latest"?>
+        <?use-template: "movies"?>
+    </template>
+    <template path="/updated-movies?">
+        <?title: "Movies | Updated"?>
+        <?eval: var query = api_url("/movies/list?by=latest")?>
+        <?use-template: "movies"?>
+    </template>
+    <template path="/top-rated">
+        <?title: "Movies | Top rated"?>
+        <?eval: var query = api_url("/movies/imdb-rating/8")?>
+        <?use-template: "movies"?>
+    </template>
+    <template path="/imdb-250">
+        <?title: "Movies | imdb top 250"?>
+        <?eval: var query = api_url("/movies/imdb-250")?>
+        <?use-template: "movies"?>
+    </template>
+    <template path="/saved-list?">
+        <?title: "Movies| Saved list "?>
+        <?use-template: "saved-list"?>
+    </template>
+    <template path="/download">
+        <?title: "Movie | Download"?>
+        <?use-template: "download"?>
+    </template>
+    <template path="/download/source">
+        <?title: "movie | source"?>
+        <?use-template: "download-source"?>
+    </template>
+    <template path="/report-issues">
+        <?title: "movie | report"?>
+        <?use-template: "404"?>
+    </template>
+    <!-- Routers Callbacks -->
+    <template sys="error">
+        <?title: "movie | Error"?>
+        <?use-template: 'error'?>
+    </template>
+    <template sys="404">
+        <?title: "movie | 404"?>
+        <?use-template: '404'?>
+    </template>
+
+    <!-- Usable templates -->
+    <template id="loading">
+        <div class="ui active inverted dimmer">
+            <div class="ui large text loader">loading</div>
+        </div>
+    </template>
+    <template id="landing">
+        <?on: 'pagechange'; {detail}?>
+        <?eval: var {query,path,template} =detail;?>
+        <??console-log: template?>
+        <?use-template: template?>
+        <?end?>
+    </template>
+    <template id="pathName">
+        "
+        <!--?if:path.length>10?-->
+        <?html-element: "font", {title:path}?>
+        <?print: path.substring(0,7)?>...
+        <?end?>
+        <!--?else?-->
+        <?print: path?>
+        <!--?end?-->
+        "
+    </template>
+
+
+    <script src="lib/xjsx.js" block></script>
+    <!-- <script src="/lib/xjsx-min.js"></script> -->
+    <script src="js/XJSX-module.js"></script>
+    <script src="js/movie-api.js"></script>
+    <script src="js/Storage.js"></script>
+    <!-- <base href=" http://localhost:2000"> -->
+    <script>
+        window.movie=new Movie();
+        function api_url(path) {
+            if (path.match(/^[a-z]+:/i)) {
+                return path
+            }
+            path = path.trim().replace(/^[\\\/]|^[\\\/]?(v1[\\\/])?/i,"")
+            return movie.api+path;
+        }
+        watchLaterStorage = new Storage('localStorage', 'watchLaterStorage')
+        systemStorage = new Storage('localStorage', 'systemStorage')
+
+        var pageFetch = function (url) {
+            return fetch(url)
+                .then(function (e) {
+                    return e.text()
+                })
+                .then(function () {
+                    var t = document.createElement('template')
+                    t.innerHTML = arguments[0]
+                    return t.content;
+                })
+        }
+
+        /** Custom usable templates 
+         * 
+         * <?use-template: error?>
+         * <?use-template: 404?>
+         * <?use-template: list?>
+         * ...
+         * **/
+        var pageTemplates = XJSX.createTemplate({
+            "error": pageFetch("page/error.html"),
+            "404": pageFetch("page/404.html"),
+            list: pageFetch("page/list.html"),
+            download: pageFetch("page/download.html"),
+            "download-source": pageFetch("page/download-source.html"),
+            movies: pageFetch("page/movies.html"),
+            "saved-list": pageFetch("page/saved-list.html"),
+            info: pageFetch("page/info.html"),
+            empty: pageFetch("page/empty.html"),
+            "more-info": pageFetch("page/more-info.html"),
+            "preview-image": pageFetch("page/preview-image.html"),
+            "trailer": pageFetch("page/trailer.html"),
+            "movieError": pageFetch("page/movie-error.html"),
+            ref: pageFetch("page/ref.html")
+        })
+ 
+    </script>
+    <script src="js/script.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- creates a title tag
+    <title>...</title>
+    -->
+    <?html-element: 'title'?>
+    <?data:'title'?>
+    <?end?>
+</head>
+
+<body class="body">
+    <wrapper>
+
+        <article id="article">
+            <progress-bar></progress-bar>
+            <header>
+                <span onclick="location.href='/#/'">WeMovie</span>
+                <div>
+                    <div class="ui icon input mini ">
+                        <input type="search" placeholder="Search movies..." style="border-color: #85b7d9;"
+                            onsearch="search(this)">
+                        <i class="icon search" onclick="search(this.previousElementSibling)"
+                            style="pointer-events: auto;"></i>
+                    </div>
+                </div>
+                <div xstyle="margin-left: 3px;" onclick="sideBar()">
+                    <!-- <i class=" icon ellipsis horizontal"></i> -->
+                    <!-- <i class=" icon list layout" xstyle="margin-left: 10px;"></i> -->
+                    <i class=" icon sidebar xlayout" id="menuIcon" xstyle="margin-left: 10px;"></i>
+                </div>
+            </header>
+            <div class="content">
+                <?if: !window.XJSX?>
+                    <div class="pad">
+                        <h1>Source Error</h1>
+                        <p>The javascript needed to run this application was not found.</p>
+                        <p>pleas make sure javascript is enabled</p>
+                    </div>
+                <?else?>
+                    <?initialize?>
+                    <?await: pageTemplates?>
+                        <?use-template: loading?>
+                    <?then?>
+                        <?use-template: landing?>
+                    <?end?>
+                <?end?>
+            </div>
+        </article>
+        <side-bar>
+            <!-- <margin-header class="margin-border-bottom" onclick="sideBar()"></margin-header> -->
+            <!-- <h3 style="margin-bottom: 0;">Menu</h3> -->
+            <div class="side-wrap">
+                <div class="x hover opacity" onclick="sideBar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <title>close menu</title>
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+                <div class="ui items divided">
+                    <a class="item" href="/#/movies">Latest movies</a>
+                    <a class="item" href="/#/updated-movies">Updated movies</a>
+                    <a class="item" href="/#/top-rated">Top rated movies</a>
+                    <a class="item" href="/#/imdb-250">IMDB top 250</a>
+                    <a class="item" href="/#/saved-list">Saved list</a>
+                    <a class="item" href="/#/report-issues">Report issues</a>
+                    <a class="item" xhref="/#/report-issues" onclick="document.body.requestFullscreen()">Enable fullscreen</a>
+                    <a class="item" href="/#/">Home page</a>
+                </div>
+            </div>
+        </side-bar>
+    </wrapper>
+</body>
+
+</html>

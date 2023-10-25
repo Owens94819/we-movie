@@ -1,0 +1,123 @@
+<!--?if: res.response.data.length>0 ?-->
+    <div class="ui two doubling cards">
+        <?for-each: res.response.data,100; movie?>
+            <div class="card" id="c">
+                <div class="ui image">
+                    <div class="ui black ribbon label" style="left: -1rem;">
+                        <?print: movie.meta.date&&(new Date(movie.meta.date)).toDateString()||movie.year?>
+                    </div>
+                    <?html-element: 'img',{style:"min-height:442px",src:movie["image-thumb"], xonerror:"this.src='asset/wireframe/thumb-issue.svg'", xsrc:"asset/Hard.Feelings.2023.jpg"}?>
+                    <?end?>
+                    <?if: movie.tags.length?>
+                    <div class="content">
+                        <b>Tags:</b>
+                        <?for-each: movie.tags; tag, i?>
+                        <a>
+                            <?print: tag.name.toLowerCase()?>
+                        </a>
+                        <?if: i!==movie.tags.length-1?>|
+                        <?end?>
+                        <!-- <?console-log: tag?> -->
+                        <?end?>
+                    </div>
+                    <?end?>
+                </div>
+                <div class="content">
+                    <div class="header">
+                        <?print: movie.title?>
+                        <?if:movie.type?>
+                        <sup style="opacity: 0.7;">(
+                            <?print: movie.type?>)
+                        </sup>
+                        <?end?>
+                    </div>
+                    <?if:movie.meta.director?>
+                    <div class="meta">
+                        <!-- <?console-log: movie?> -->
+                        <a>
+                            <?print: sanitize(movie.meta.director)?>
+                        </a>
+                    </div>
+                    <?end?>
+                    <div class="description">
+                        <?if: !movie.description.trim()?>
+                        <span class="des error">
+                            <?print: "No description available at the moment"?>
+                        </span>
+                        <?else?>
+                        <?print: movie.description?>
+                        <?end?>
+                        <br>
+                        <div class="ui mini buttons" style="margin-top: 8px;">
+                            <?html-element: 'button',{class:'ui button primary dropdown simple'}?>
+                            Instant download
+                            <div class="menu" tabindex="-1">
+                            <?html-element: 'a',{href:"#/download/source|"+btoa(api_url("/download/direct/source/0/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            420p
+                            <?end?>
+                            <?html-element: 'a',{href:"#/download/source|"+btoa(api_url("/download/direct/source/1/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            720p
+                            <?end?>
+                            </div>
+                            <?end?>
+                            <div class="or"></div>
+                            <?html-element: 'a',{href:"#/info?"+btoa(movie.id),class:'ui button positive'}?>See more
+                            <?end?>
+                        </div>
+                    </div>
+                    <div class="extra info" style="margin-top: 4px;">
+                        <?html-element: 'a',{href:"#/ref?"+btoa(movie.meta['imdb-profile'])}?>imdb&nbsp;profile
+                        <?end?>
+                        |
+                        <?html-element: 'a',{href:"#/ref?"+btoa(movie['origin'])}?>fzmovies&nbsp;profile
+                        <?end?>
+                    </div>
+                    <div class="extra content" style="display: flex;align-items: center;justify-content: space-between;">
+                        <span cstyle="display: flex;align-items: center;line-height: 0;">
+
+                            <div class="ui right mini labeled button" tabindex="0">
+                                <div class="ui mini button" style="background-color: #dba506;">
+                                    IMDB
+                                </div>
+                                <span class="ui basic left pointing label" style="    border-color: #dba506;">
+                                    <?fetch: movie["imdb-rating"], {type:'json'}?>
+                                    loading...
+                                    <?then: {response}?>
+                                    <?if: response?>
+                                    <b>
+                                        <?print: response.rating?>
+                                        <sub style="opacity: 0.7;">(
+                                            <?print: response.ratingCount?>&nbsp;votes)
+                                        </sub>
+                                    </b>
+                                    <?else?>
+                                    n/A
+                                    <?end?>
+                                    <?catch?>
+                                    Error with imdb rating
+                                    <?end?>
+                                </span>
+                            </div>
+                        </span>
+                        <?html-element: 'a', {class:'ui button tiny blue loading basic', style:"font-size:10px",onclick:function(){watchLater(movie, this)}}; node?>
+                        <?await: watchLaterStorage.has(movie.id)?>
+                        Watch later
+                        <?then: e?>
+                        <?eval: node.classList.remove('loading')?>
+                        <?if: e?>
+                        <?eval: node.classList.add('red')?>
+                        unsave
+                        <?else?>
+                        Save for later
+                        <?end?>
+                        <?end?>
+                        <?end?>
+                    </div>
+
+                </div>
+            </div>
+        <?end?>
+    </div>
+<!--?else?-->
+    <?use-template: "empty"?>
+<!--?end?-->

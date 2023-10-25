@@ -1,0 +1,36 @@
+
+<div class="pg">
+    <div class="pgwp">
+        <button class="ui mini button gray icon left" onclick="pgL()">
+            <i class="icon angle left"></i>
+        </button>
+        <div style="background: rgb(203 203 203);margin:0;border-radius: 0;" class="ui pgp  blue  progress active" data-percent="">
+            <div class="bar pgbar"
+                style="    border-top-left-radius: 0;border-bottom-left-radius: 0;height: 100%;overflow: hidden; transition-duration: 300ms; width: 0%;    min-width: 55%;">
+                <div class="progress"></div>
+            </div>
+            <!-- <div class="label">pages</div> -->
+        </div>
+        <button class="ui mini button icon gray right" onclick="pgR()">
+            <i class="icon angle right"></i>
+        </button>
+    </div>
+    <script>
+        // var pg = document.currentScript.parentNode//.querySelector('.pg')
+                // console.log(pg,list);
+      // alert(99)
+    </script>
+</div>
+
+<?fetch: query ||api_url("/movies/list"), {type:'json'}?>
+    <?use-template: loading?>
+<?then: res?>
+    <?if:"object" === typeof res.response?>
+        <?eval: pgInit(res.response)?>
+        <?use-template: "list"?>
+    <?else?>
+        <?use-template: "movieError"?>
+    <?end?>
+<?catch: e?>
+    <?use-template: "movieError"?>
+<?end?>

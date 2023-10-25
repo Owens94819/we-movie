@@ -1,0 +1,260 @@
+body>* {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+
+wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+wrapper>* {
+    width: 100%;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+        /* width: max-content; */
+}
+
+header {
+    z-index: 1001;
+    position: relative;
+    font-weight: 700;
+    text-transform: capitalize;
+    background: white;
+    min-height: 42px;
+    box-shadow: -3px -1px 6px currentColor;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    /* width: inherit; */
+    min-width: max-content;
+}
+
+article>.content {
+    height: 100%;
+    overflow: auto;
+    /* padding: 1rem; */
+    /* padding-top: 100px; */
+    position: relative;
+    /* padding-top: 0; */
+    width: inherit;
+}
+
+.pad {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pad.none {
+    text-align: unset;
+    display: block;
+}
+
+.pad>h1 {
+    margin-bottom: 0;
+}
+
+.pad>p {
+    text-transform: lowercase;
+}
+
+article>.content>.cards,
+.pad {
+    padding: 1rem;
+}
+
+side-bar {
+    display: none;
+    width: 0;
+    /* max-width: 0;
+min-width: 0; */
+display: flex;
+    width: 400px;
+}
+
+[open]>side-bar {
+    /* width: 100%; */
+}
+
+.pgbar {
+    max-width: 100%;
+}
+
+.pg {
+    padding: 24px 0px;
+    margin-bottom: 24px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: row;
+    /* margin: 20px 0; */
+    align-items: baseline;
+    position: fixed;
+    position: absolute;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    left: 0;
+    /* right: 50%; */
+    z-index: 10;
+    /* background: #ffffff28; */
+    pointer-events: none;
+    /* backdrop-filter: blur(6px); */
+    /* border-bottom-left-radius: 26px;
+    border-bottom-right-radius: 26px; */
+}
+
+.pgp {
+    max-width: 90%;
+    width: 300px;
+}
+
+.pgwp {
+    position: relative;
+    pointer-events: auto;
+    display: flex;
+    max-width: 92%;
+}
+
+.ui.button.icon {
+    margin: 0;
+    border-radius: 0;
+}
+
+.pgwp button {
+    /* position: absolute; */
+    top: 18px;
+}
+
+.pgwp {
+    box-shadow: 2px 2px 6px #000000a6;
+    border-radius: 12px;
+}
+
+.pgwp button.right.icon {
+    right: -24px;
+    border-radius: 0px 12px 12px 0px;
+}
+
+.pgwp button.left.icon {
+    border-radius: 12px 0px 0px 12px;
+    left: -21px;
+}
+
+.pgwp button i {
+    /* position: absolute; */
+    left: 50%;
+    right: 50%;
+    /* transform: translate(-50%,-50%); */
+}
+
+.input.loading {
+    pointer-events: none;
+}
+
+.pending,
+.ui.tiny.image.pending,
+.ui.image.pending {
+    height: 442px;
+    width: 300px;
+    position: relative;
+}
+
+.pending::before {
+    width: 300px;
+    height: 100%;
+    content: "loading...";
+    color: #ffffff;
+    background-color: #00000073;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iframe>iframe {
+    border: 1px solid;
+}
+
+.iframe.loading {
+    position: relative;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.iframe.loading>* {
+    pointer-events: auto;
+}
+
+.iframe.loading::before {
+    font-family: Icons;
+    width: 100%;
+    height: 100%;
+    content: " \f04b";
+    color: #ffffff;
+    background-color: #0000008d;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    pointer-events: none;
+}
+
+.saved-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /* justify-content: flex-start; */
+    justify-content: space-evenly;
+}
+
+.saved-wrapper {
+    border: 1px solid #a7a7a7;
+    margin: 12px 3px;
+    /* box-shadow: 1px 2px 4px black; */
+    overflow: hidden;
+}
+.saved-wrapper>.image {
+        height: 230px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+.saved-wrapper>.image>img{
+    max-height: 100%;
+    min-width: 156px;
+}
+.saved-wrapper>.image>.node {
+    position: absolute;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    background: #00000094;
+    color: #ffffff;
+    padding: 0 9px;
+}
+.saved-wrapper>.image>.imdb-rating{
+top: 0;
+right: 0;
+color: #ffc067;
+}
+.saved-wrapper>.image>.title{
+        bottom: 0;
+}

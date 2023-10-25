@@ -1,0 +1,31 @@
+ @keyframes rainbow {
+     0% {
+         background-position: 0% 100%;
+     }
+
+     50% {
+         background-position: 100% 200%;
+     }
+
+     100% {
+         background-position: 0% 100%;
+     }
+    }
+
+         @-webkit-keyframes spin {
+             to {
+                 /* -webkit-transform: rotate(1turn);
+    transform: rotate(1turn) */
+                 transform: rotate(360deg);
+                 -webkit-transform: rotate(360deg);
+             }
+         }
+    
+         @keyframes spin {
+             to {
+                 /* -webkit-transform: rotate(1turn);
+    transform: rotate(1turn); */
+                 transform: rotate(360deg);
+                 -webkit-transform: rotate(360deg);
+             }
+         }

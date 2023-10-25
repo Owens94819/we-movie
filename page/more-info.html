@@ -1,0 +1,164 @@
+<?console-log: movie?>
+<?if: movie.id?>
+<div class="pad none">
+    <table class="ui celled striped table unstackable" id="tb">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <?html-element: 'a',{href:"#/preview/image?"+btoa(movie["image"])}; node?>
+                    <?eval: node.style.cssText='text-decoration:underline'?>
+                    <i class="icon image"></i>
+                    See Movie Cover Here
+                    <?end?>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Title</td>
+                <td>
+                    <?print: movie.name|| "n/A"?>
+                </td>
+            </tr>
+            <tr>
+                <td>Plot</td>
+                <td>
+                    <?print: movie.plot|| "n/A"?>
+                </td>
+            </tr>
+            <tr>
+                <td class="collapsing"><i class="icon imdb"></i>IMDB</td>
+                <td>
+                    <?fetch: movie["imdb-rating"], {type:'json'}?>
+                    loading...
+                    <?then: {response}?>
+                    <?if: response?>
+                    <?print: response.rating?>
+                    <sub style="opacity: 0.7;">(
+                        <?print: response.ratingCount?>&nbsp;votes)
+                    </sub>
+                    <?else?>
+                    n/A
+                    <?end?>
+                    <?catch?>
+                    Error with imdb rating
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Imdb Profile</td>
+                <td>
+                    <?html-element: 'a',{href:"#/ref?"+btoa(movie["imdb-profile"])}; node?>
+                    <?eval: node.style.cssText='text-decoration:underline'?>
+                    <?print: movie["imdb-profile"]?>
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Origin</td>
+                <td>
+                    <?html-element: 'a',{href:"#/ref?"+btoa(api_url('/origin/'+movie.id))}; node?>
+                    <?eval: node.style.cssText='text-decoration:underline'?>
+                    Refer here
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Movie trailer</td>
+                <td>
+                    <?html-element: 'a',{href:"#/ref?"+btoa(movie.trailer)}; node?>
+                    <?eval: node.style.cssText='text-decoration:underline'?>
+                    <?print: movie.trailer?>
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Published Date</td>
+                <td>
+                    <?print: movie.datePublished|| "n/A"?>
+                </td>
+            </tr>
+            <tr>
+                <td>Released Date</td>
+                <td>
+                    <?if: movie.datePublished ?>
+                    <?print: new Date(movie.datePublished).toLocaleDateString()?>
+                    <?else?>
+                    n/A
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Modified Date</td>
+                <td>
+                    <?print: movie.dateModified|| "n/A"?>
+                </td>
+            </tr>
+            <tr>
+                <td>Run time</td>
+                <td>
+                    <?print: movie.runtime|| "n/A"?>
+                </td>
+            </tr>
+            <tr>
+                <td>Director(s)</td>
+                <td>
+                    <!--?if:  movie.directors&& movie.directors.length>0 ?-->
+                    <?for-each: movie.directors;name, index?>
+                    <?print: name?>
+                    <?if:index+1 !== movie.directors.length?>|
+                    <?end?>
+                    <?end?>
+                    <?else?>
+                    n/A
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Cast(s)</td>
+                <td>
+                    <!--?if:  movie.actors&& movie.actors.length>0 ?-->
+                    <?for-each: movie.actors;name, index?>
+                    <?print: name?>
+                    <?if:index+1 !== movie.actors.length?>|
+                    <?end?>
+                    <?end?>
+                    <?else?>
+                    n/A
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Genre(s)</td>
+                <td>
+                    <!--?if:  movie.genre&& movie.genre.length>0 ?-->
+                    <?for-each: movie.genre;name, index?>
+                    <?print: name?>
+                    <?if:index+1 !== movie.genre.length?>|
+                    <?end?>
+                    <?end?>
+                    <?else?>
+                    n/A
+                    <?end?>
+                </td>
+            </tr>
+            <tr>
+                <td>Tag(s)</td>
+                <td>
+                    <!--?if:  movie.tags&& movie.tags.length>0 ?-->
+                    <?for-each: movie.tags;name, index?>
+                    <?print: name?>
+                    <?if:index+1 !== movie.tags.length?>|
+                    <?end?>
+                    <?end?>
+                    <?else?>
+                    n/A
+                    <?end?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<?else?>
+ <?use-template: "empty"?>
+<?end?>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300px"
+   height="442px"
+   viewBox="0 0 300 442"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="thumb-issue (copy).svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1544"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.68593502"
+     inkscape:cx="276.99417"
+     inkscape:cy="231.80038"
+     inkscape:window-width="1258"
+     inkscape:window-height="480"
+     inkscape:window-x="7"
+     inkscape:window-y="66"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs1539" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#999999;stroke-width:27.4583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:27.4583, 109.833"
+       id="rect2864"
+       width="313.87653"
+       height="461.24539"
+       x="-5.7416434"
+       y="-7.6555247" />
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="g"
+       style="fill:#e6e6e6"
+       transform="translate(-16.101551,10.708827)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#e6e6e6"
+         x="112.87791"
+         y="222.69917"
+         id="text3085"><tspan
+           sodipodi:role="line"
+           id="tspan3087"
+           x="112.87791"
+           y="222.69917">[world of good...]</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:16px;line-height:1.25;font-family:Poppins;-inkscape-font-specification:'Poppins, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#e6e6e6"
+         x="55.069599"
+         y="206.69917"
+         id="text3028"><tspan
+           sodipodi:role="line"
+           id="tspan3026"
+           x="55.069599"
+           y="206.69917">Cannot generate thumbnail</tspan></text>
+    </g>
+  </g>
+</svg>
