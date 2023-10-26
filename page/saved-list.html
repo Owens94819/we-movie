@@ -5,32 +5,18 @@
    <?eval: var len = 0 ?>
 
    <div class="saved-list">
-      <?for-each: res, 100; movie?>
+      <?for-each: res, 0; movie?>
       <?console-log: movie?>
          <?eval: len+=1 ?>
          <?html-element: "a", {class:"saved-wrapper", href:"./#/info?"+btoa(api_url("/info/"+movie.id))} ?>
             <div class="image">
                <div class="imdb-rating node">
-                  <?fetch: movie["imdb-rating"], {type:'json'}?>
-                     loading...
-                     <?then: {response}?>
-                        <?if: response?>
-                           <b>
-                              <?print: response.rating?>
-                              <sub style="opacity: 0.7;">(
-                                 <?print: num(response.ratingCount)?>&nbsp;votes)
-                              </sub>
-                           </b>
-                        <?else?>
-                           n/A
-                        <?end?>
-                     <?catch?>
-                     Error with imdb rating
-                  <?end?>
+                  <?use-template: "imdb"?>
                </div>
                <?html-element: "img", {src:/*"/asset/Hard.Feelings.2023.jpg"||*/movie.image}?> <?end?>
                <div class="title node">
                   <?print: movie.name?>
+                  pathName
                </div>
             </div>
             <!-- <?console-log: movie?> -->

@@ -1,4 +1,4 @@
-XJSX.createAnimation('slide', function (node, resolve, name) {
+XJSX.createEffect('slide', function (node, resolve, name) {
 
 });
 
@@ -68,7 +68,6 @@ XJSX.createModule("title", XJSX.METHOD, {
         XJSX.event.emitData('title', s)
     }
 })
-.end()
 
 XJSX.createModule("initialize", XJSX.METHOD, {
     callback: function (v, node, eval) {
@@ -80,4 +79,3 @@ XJSX.createModule("initialize", XJSX.METHOD, {
         XJSX.event.emit('hashchange')
     }
 })
-    .end()
