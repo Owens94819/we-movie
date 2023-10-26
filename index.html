@@ -136,7 +136,17 @@
         <!--?end?-->
         "
     </template>
-
+    <template id="movieName">
+        <?eval: var {name}=movie?>
+        <?console-log: name?>
+        <!--?if:name.length>16?-->
+        <?html-element: "font", {title:name}?>
+        <?print: name.substring(0,14)?>...
+        <?end?>
+        <!--?else?-->
+        <?print: name?>
+        <!--?end?-->
+    </template>
 
     <script src="lib/xjsx.js"></script>
     <!-- <script src="/lib/xjsx-min.js"></script> -->
@@ -218,16 +228,16 @@
         <article id="article">
             <progress-bar></progress-bar>
             <header>
-                <span onclick="location.href='./#/'">WeMovie</span>
+                <span onclick="location.href='./#/'" title="we movie!">WeMovie</span>
                 <div>
-                    <div class="ui icon input mini ">
+                    <div class="ui icon input mini " title="search movies here">
                         <input type="search" placeholder="Search movies..." style="border-color: #85b7d9;"
                             onsearch="search(this)">
                         <i class="icon search" onclick="search(this.previousElementSibling)"
                             style="pointer-events: auto;"></i>
                     </div>
                 </div>
-                <div xstyle="margin-left: 3px;" onclick="sideBar()">
+                <div xstyle="margin-left: 3px;" onclick="sideBar()"  title="open menu">
                     <!-- <i class=" icon ellipsis horizontal"></i> -->
                     <!-- <i class=" icon list layout" xstyle="margin-left: 10px;"></i> -->
                     <i class=" icon sidebar xlayout" id="menuIcon" xstyle="margin-left: 10px;"></i>

@@ -115,6 +115,7 @@ article::after {
     right: 0;
     z-index: 1;
     display: none;
+    backdrop-filter: blur(1px);
 }
 
 [open="true"] article::after {
@@ -123,7 +124,6 @@ article::after {
 
 /* page */
 article {
-    /* width: 100%; */
-    /* width: fit-content; */
+    width: 100vw;
     overflow: hidden;
 }

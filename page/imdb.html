@@ -4,13 +4,13 @@ loading...
 <?if: response?>
 <b>
     <?print: response.rating?>
-    <sub style="opacity: 0.7;">(
-        <?print: num(response.ratingCount)?>&nbsp;votes)
+    <sub style="opacity: 0.7;">
+        | <?print: num(response.ratingCount)?>&nbsp;votes
     </sub>
 </b>
 <?else?>
 n/A
 <?end?>
 <?catch?>
-Error with imdb rating
+    ratings unavailable
 <?end?>

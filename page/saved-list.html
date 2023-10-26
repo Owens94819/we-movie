@@ -13,10 +13,9 @@
                <div class="imdb-rating node">
                   <?use-template: "imdb"?>
                </div>
-               <?html-element: "img", {src:/*"/asset/Hard.Feelings.2023.jpg"||*/movie.image}?> <?end?>
+               <?html-element: "img", {src:movie.image, lowsrc:movie["image-thumb"]}?> <?end?>
                <div class="title node">
-                  <?print: movie.name?>
-                  pathName
+                  <?use-template: "movieName"?>
                </div>
             </div>
             <!-- <?console-log: movie?> -->
