@@ -1,5 +1,5 @@
 
-<div class="pg">
+<!-- <div class="pg">
     <div class="pgwp">
         <button class="ui mini button gray icon left" onclick="pgL()">
             <i class="icon angle left"></i>
@@ -9,7 +9,7 @@
                 style="    border-top-left-radius: 0;border-bottom-left-radius: 0;height: 100%;overflow: hidden; transition-duration: 300ms; width: 0%;    min-width: 55%;">
                 <div class="progress"></div>
             </div>
-            <!-- <div class="label">pages</div> -->
+            <div class="label" hidden>pages</div>
         </div>
         <button class="ui mini button icon gray right" onclick="pgR()">
             <i class="icon angle right"></i>
@@ -20,17 +20,45 @@
                 // console.log(pg,list);
       // alert(99)
     </script>
-</div>
+</div> -->
 
-<?fetch: query ||api_url("/movies/list"), {type:'json'}?>
+<?fetch: query , {type:'json'}?>
     <?use-template: loading?>
-<?then: res?>
-    <?if:"object" === typeof res.response?>
-        <?eval: pgInit(res.response)?>
+<?then: {response}?>
+        <?eval:var {pg_length,pg_current} = response;?>
+        <!--?if: pg_length > 1 ?-->
+            <div class="pg">
+                <div class="case-wrapper">
+                    <?var: maxcase = 3?>
+                    <?html-element:"a", {class:"case", href: "./#/movies?"+(pg_current+1)}?>
+                    Next
+                    <?end?>
+                    <!--?if: pg_current > 1?-->
+                        <?html-element:"a", {class:"case", href: "./#/movies?"+(pg_current-1)}?>
+                        Prev
+                        <?end?>
+                    <!--?end?-->
+                    <?html-element:"input", {
+                        type:"number",
+                        class:"case a",
+                        placeholder:"Index",
+                        value:pg_current,
+                        max:pg_length, 
+                        min:1,
+                        maxLength:pg_length.toString().length,
+                        onchange: function(){location.href="./#/movies?"+this.valueAsNumber}
+                    }?>
+                    <?end?>
+                    <?for-each: maxcase;i?>
+                        <?var: n=(pg_length-maxcase)+(i+1)?>
+                        <?html-element:"a", {class:"case", disable:n===pg_current, href: "./#/movies?"+n}?>
+                        <?print: n?>
+                        <?end?>
+                    <?end?>
+                </div>
+            </div>
+        <!--?end?-->
         <?use-template: "list"?>
-    <?else?>
-        <?use-template: "movieError"?>
-    <?end?>
 <?catch: e?>
     <?use-template: "movieError"?>
 <?end?>

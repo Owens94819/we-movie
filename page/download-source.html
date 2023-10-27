@@ -1,10 +1,11 @@
 <div class="pad">
+  <?eval: query=api_url(`/download/direct/source`+query)?>
   <?fetch: query, {type:"json"}?>
     Loading sources...
   <?then: {response}?>
     Almost there...
     <??eval: alert(JSON.stringify(response))?>
-    <?eval: location.replace("./#/download|"+btoa(response.file))?>
+    <?eval: location.replace("./#/download|"+encodeURIComponent(response.file))?>
   <?catch?>
     Oops error, try reload this page again!
   <?end?>

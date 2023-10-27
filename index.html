@@ -5,14 +5,12 @@
     <link rel="stylesheet" href="lib/semantic/component/reset.min.css">
     <link rel="stylesheet" href="lib/semantic/component/button.min.css">
     <link rel="stylesheet" href="lib/semantic/component/card.min.css">
-    <link rel="stylesheet" href="lib/semantic/component/grid.min.css">
+    <!-- <link rel="stylesheet" href="lib/semantic/component/grid.min.css"> -->
     <link rel="stylesheet" href="lib/semantic/component/dropdown.min.css">
     <link rel="stylesheet" href="lib/semantic/component/icon.min.css">
     <link rel="stylesheet" href="lib/semantic/component/label.min.css">
-    <link rel="stylesheet" href="lib/semantic/component/progress.min.css">
     <link rel="stylesheet" href="lib/semantic/component/loader.min.css">
-    <link rel="stylesheet" href="lib/semantic/component/input.min.css">
-    <link rel="stylesheet" href="lib/semantic/component/header.min.css">
+    <!-- <link rel="stylesheet" href="lib/semantic/component/header.min.css"> -->
     <link rel="stylesheet" href="lib/semantic/component/item.min.css">
     <link rel="stylesheet" href="lib/semantic/component/table.min.css">
     <link rel="stylesheet" href="lib/semantic/component/divider.min.css">
@@ -27,7 +25,7 @@
     <!-- routes / paths -->
     <template path="/">
         <?title: "Movies | Home"?>
-        <?use-template: "movies"?>
+        <?use-template: document.querySelector("template[path='/movies?']")?>
     </template>
     <template path="/ref">
         <?title: "Movie | Redirecting"?>
@@ -68,6 +66,20 @@
     </template>
     <template path="/movies?">
         <?title: "Movies | latest"?>
+        <?eval: var pg;?>
+        <?if: !query.trim().match(/^[a-z]+\:/i)?>
+         <?var: pg=Number(query)||1?>
+         <?var: query = api_url(`/movies/list?pg=${pg}`)?>
+        <?else?>
+         <?var: query?>
+        <?end?>
+        
+        <?use-template: "movies"?>
+    </template>
+    <template path="/movies?/search/name">
+        <?title: "Movies | "+query?>
+        <?eval: query=api_url(`/movies/search/name/`+encodeURIComponent(query))?>
+
         <?use-template: "movies"?>
     </template>
     <template path="/updated-movies?">
@@ -121,8 +133,25 @@
     <template id="landing">
         <?on: 'pagechange'; {detail}?>
         <?eval: var {query,path,template} =detail;?>
-        <??console-log: template?>
         <?use-template: template?>
+        <?end?>
+    </template>
+    <template id="menu-list">
+        <?var: list={
+            "Saved list":{href:"./#/saved-list"},
+            "IMDB top 250":{href:"./#/imdb-250"},
+            "Top rated":{href:"./#/top-rated"},
+            "Latest":{href:"./#/movies"},
+            "Updated":{href:"./#/updated-movies"},
+            "Report issues":{href:"./#/report-issues"},
+            "Use fullscreen":{onclick:"document.body.requestFullscreen()"},
+            "Home":{href:"./#/"},
+        }?>
+        <?for-each: list; v, i?>
+         <?eval: v.class="item menu-list"?>
+         <?html-element: "a", v?>
+             <?print: i?>
+         <?end?>
         <?end?>
     </template>
     <template id="pathName">
@@ -138,7 +167,7 @@
     </template>
     <template id="movieName">
         <?eval: var {name}=movie?>
-        <?console-log: name?>
+        <!-- <?console-log: name?> -->
         <!--?if:name.length>16?-->
         <?html-element: "font", {title:name}?>
         <?print: name.substring(0,14)?>...
@@ -157,13 +186,17 @@
     <script>
         //  document.baseURI=location.href
         window.movie=new Movie();
-
+  if (location.hostname.match(/localhost|127.0.0.1/)) {
+    movie.api=" http://localhost:2000/v1/"
+    console.log("TESTING MODE");
+  }
         function api_url(path) {
             if (path.match(/^[a-z]+:/i)) {
                 return path
             }
             path = path.trim().replace(/^[\\\/]|^[\\\/]?(v1[\\\/])?/i,"")
-            return movie.api+path;
+            path=movie.api+path
+            return path;
         }
         watchLaterStorage = new Storage('localStorage', 'watchLaterStorage')
         systemStorage = new Storage('localStorage', 'systemStorage')
@@ -230,7 +263,7 @@
             <header>
                 <span onclick="location.href='./#/'" title="we movie!">WeMovie</span>
                 <div>
-                    <div class="ui icon input mini " title="search movies here">
+                    <div class=" search" title="search movies here">
                         <input type="search" placeholder="Search movies..." style="border-color: #85b7d9;"
                             onsearch="search(this)">
                         <i class="icon search" onclick="search(this.previousElementSibling)"
@@ -274,14 +307,7 @@
                     </svg>
                 </div>
                 <div class="ui items divided">
-                    <a class="item" href="./#/movies">Latest movies</a>
-                    <a class="item" href="./#/updated-movies">Updated movies</a>
-                    <a class="item" href="./#/top-rated">Top rated movies</a>
-                    <a class="item" href="./#/imdb-250">IMDB top 250</a>
-                    <a class="item" href="./#/saved-list">Saved list</a>
-                    <a class="item" href="./#/report-issues">Report issues</a>
-                    <a class="item" onclick="document.body.requestFullscreen()">Enable fullscreen</a>
-                    <a class="item" href="./#/">Home page</a>
+                        <?use-template: "menu-list"?>
                 </div>
             </div>
         </side-bar>

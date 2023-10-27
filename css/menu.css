@@ -127,3 +127,8 @@ article {
     width: 100vw;
     overflow: hidden;
 }
+
+.menu-list{
+    text-transform: capitalize;
+    font-weight: 600;
+}

@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <th colspan="2">
-                    <?html-element: 'a',{href:"./#/preview/image?"+btoa(movie["image"])}; node?>
+                    <?html-element: 'a',{href:"./#/preview/image?"+encodeURIComponent(movie["image"])}; node?>
                     <?eval: node.style.cssText='text-decoration:underline'?>
                     <i class="icon image"></i>
                     See Movie Cover Here
@@ -35,7 +35,7 @@
             <tr>
                 <td>Imdb Profile</td>
                 <td>
-                    <?html-element: 'a',{href:"./#/ref?"+btoa(movie["imdb-profile"])}; node?>
+                    <?html-element: 'a',{href:"./#/ref?"+encodeURIComponent(movie["imdb-profile"])}; node?>
                     <?eval: node.style.cssText='text-decoration:underline'?>
                     <?print: movie["imdb-profile"]?>
                     <?end?>
@@ -44,7 +44,7 @@
             <tr>
                 <td>Origin</td>
                 <td>
-                    <?html-element: 'a',{href:"./#/ref?"+btoa(api_url('/origin/'+movie.id))}; node?>
+                    <?html-element: 'a',{href:"./#/ref?"+encodeURIComponent(api_url('/origin/'+movie.id))}; node?>
                     <?eval: node.style.cssText='text-decoration:underline'?>
                     Refer here
                     <?end?>
@@ -53,7 +53,7 @@
             <tr>
                 <td>Movie trailer</td>
                 <td>
-                    <?html-element: 'a',{href:"./#/ref?"+btoa(movie.trailer)}; node?>
+                    <?html-element: 'a',{href:"./#/ref?"+encodeURIComponent(movie.trailer)}; node?>
                     <?eval: node.style.cssText='text-decoration:underline'?>
                     <?print: movie.trailer?>
                     <?end?>

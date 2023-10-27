@@ -109,14 +109,47 @@ display: flex;
     top: 0;
     left: 0;
     /* right: 50%; */
-    z-index: 10;
+    z-index: 2;
     /* background: #ffffff28; */
     pointer-events: none;
     /* backdrop-filter: blur(6px); */
     /* border-bottom-left-radius: 26px;
     border-bottom-right-radius: 26px; */
 }
-
+.pg .case-wrapper{
+    box-shadow: 0 0 9px -2px rgba(57, 57, 57, 0.52);
+    backdrop-filter: blur(2px);
+    display: inline-flex;
+    background-color: rgba(229, 238, 240, 0.58);
+    border-radius: 12px;
+    padding: 12px 46px;
+    overflow: hidden;
+    font-size: 18px;
+}
+.pg .case[disable="true"]{
+    pointer-events: none;
+    opacity: 0.5;
+}
+.pg .case{
+    display: block;
+    pointer-events: all;
+    border: 1px solid;
+    padding: 6px;
+    margin-right: 4px;
+}
+.pg input.case{
+    outline: none;
+    max-width: 71px;
+    border-color: black;
+    background: none;
+}
+.pg .case:first-child{
+    border-radius: 12px 0 0 12px;
+}
+.pg .case:last-child{
+    margin-right: 0;
+    border-radius: 0 12px 12px 0;
+}
 .pgp {
     max-width: 90%;
     width: 300px;
@@ -258,6 +291,59 @@ right: 0;
         bottom: 0;
 }
 
+.search{
+    font-size: .78571429em;
+    position: relative;
+    font-weight: 400;
+    font-style: normal;
+    display: inline-flex;
+    color: rgba(0,0,0,.87);
+}
+div.search>input{
+    padding-right: 2.67142857em!important;
+    margin: 0;
+    max-width: 100%;
+    flex: 1 0 auto;
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    text-align: left;
+    line-height: 1.21428571em;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    padding: .67857143em 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    border-radius: .28571429rem;
+    transition: box-shadow .1s ease,border-color .1s ease;
+    box-shadow: none;
+}
+div.search>i.icon {
+    cursor: default;
+    position: absolute;
+    line-height: 1;
+    text-align: center;
+    top: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
+    width: 2.67142857em;
+    opacity: .5;
+    border-radius: 0 .28571429rem .28571429rem 0;
+    transition: opacity .3s ease;
+}
+div.search>i.icon:before {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+    margin-top: -.5em;
+}
+
+.des{
+    max-height: 200px;
+    overflow: hidden;
+}
 @media only screen and (max-width: 522px) {
     .saved-list {
         justify-content: center;

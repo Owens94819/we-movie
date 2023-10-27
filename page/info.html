@@ -48,7 +48,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <?html-element: 'a', {href:"./#/info/more?"+btoa(JSON.stringify(movie))}?>
+                                    <?html-element: 'a', {href:"./#/info/more?"+encodeURIComponent(JSON.stringify(movie))}?>
                                       See all
                                     <?end?>
                                 </td>
@@ -88,7 +88,7 @@
                                     <div class="item">
                                         <i class="icon file video outline"></i>
                                         <div class="content">
-                                            <?html-element:'a',{href:"./#/download/source|"+btoa(api_url(`/download/direct/source/${i1}/${i2}/`+v.id))}?>
+                                            <?html-element:'a',{href:"./#/download/source|"+encodeURIComponent(`/${i1}/${i2}/`+v.id)}?>
                                              <?print:v.name?>
                                             <?end?>
                                             <div class="description" style="font-size: 14px;">
@@ -124,13 +124,13 @@
         <div class="ui massive horizontal divided middle aligned animated list">
             <?for-each: movie.recommended; movie?>
                 <div class="item">
-                        <!-- <?html-element: 'a', {href:"./#/info?"+btoa(movie.info)}?> -->
-                        <?html-element: 'img',{src:movie["image"], class:"ui avatar image", onerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
-                            <?eval: node.onclick = function(){location.href="./#/info?"+btoa(movie.info)} ?>
+                        <!-- <?html-element: 'a', {href:"./#/info?"+encodeURIComponent(movie.id)}?> -->
+                        <?html-element: 'img',{src:movie["image"], class:"ui avatar image", xonerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
+                            <?eval: node.onclick = function(){location.href="./#/info?"+encodeURIComponent(movie.id)} ?>
                             <?eval: node.style.cssText='height:auto;border-radius:5px;' ?>
                         <?end?>
                         <!-- <?end?> -->
-                        <?html-element: 'a', {class:'content',href:"./#/info?"+btoa(movie.info)}?>
+                        <?html-element: 'a', {class:'content',href:"./#/info?"+encodeURIComponent(movie.id)}?>
                             <a class="header" style="margin-top: 10px; font-weight: 400;font-size: 16px; max-width: 180px;"><?print: movie.name?></a>
                             <div class="description" tabindex="0" style="font-size: 14px;">
                                     IMDB:

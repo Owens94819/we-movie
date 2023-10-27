@@ -1,6 +1,6 @@
-<!--?if: res.response.data.length>0 ?-->
+<!--?if: response.data && response.data.length>0 ?-->
     <div class="ui two doubling cards">
-        <?for-each: res.response.data,100; movie?>
+        <?for-each: response.data,100; movie?>
             <div class="card" id="c">
                 <div class="ui image">
                     <div class="ui black ribbon label" style="left: -1rem;">
@@ -45,31 +45,33 @@
                             <?print: "No description available at the moment"?>
                         </span>
                         <?else?>
-                        <?print: movie.description?>
+                        <!-- <div class="des"> -->
+                            <?print: movie.description?>
+                        <!-- </div> -->
                         <?end?>
                         <br>
                         <div class="ui mini buttons" style="margin-top: 8px;">
                             <?html-element: 'button',{class:'ui button primary dropdown simple'}?>
                             Instant download
                             <div class="menu" tabindex="-1">
-                            <?html-element: 'a',{href:"./#/download/source|"+btoa(api_url("/download/direct/source/0/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            <?html-element: 'a',{href:"./#/download/source?"+encodeURIComponent(api_url("/download/direct/source/0/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
                             420p
                             <?end?>
-                            <?html-element: 'a',{href:"./#/download/source|"+btoa(api_url("/download/direct/source/1/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            <?html-element: 'a',{href:"./#/download/source?"+encodeURIComponent(api_url("/download/direct/source/1/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
                             720p
                             <?end?>
                             </div>
                             <?end?>
                             <div class="or"></div>
-                            <?html-element: 'a',{href:"./#/info?"+btoa(movie.id),class:'ui button positive'}?>See more
+                            <?html-element: 'a',{href:"./#/info?"+movie.id,class:'ui button positive'}?>See more
                             <?end?>
                         </div>
                     </div>
                     <div class="extra info" style="margin-top: 4px;">
-                        <?html-element: 'a',{href:"./#/ref?"+btoa(movie.meta['imdb-profile'])}?>imdb&nbsp;profile
+                        <?html-element: 'a',{href:"./#/ref?"+encodeURIComponent(movie.meta['imdb-profile'])}?>imdb&nbsp;profile
                         <?end?>
                         |
-                        <?html-element: 'a',{href:"./#/ref?"+btoa(movie['origin'])}?>fzmovies&nbsp;profile
+                        <?html-element: 'a',{href:"./#/ref?"+decodeURIComponent(movie['origin'])}?>fzmovies&nbsp;profile
                         <?end?>
                     </div>
                     <div class="extra content" style="display: flex;align-items: center;justify-content: space-between;">

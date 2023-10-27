@@ -29,7 +29,7 @@ body {
         background: inherit;
 }
 
-a {
+a,.a {
     color: #4183c4;
     text-decoration: none;
 }
@@ -42,7 +42,12 @@ div.card#c {
 .ui.ribbon.label {
     z-index: 1;
 }
-
+.ui.buttons .or{
+    z-index: 1;
+}
+.ui.pointing.label:before{
+    z-index: 1;
+}
 div.ui.cards>.card>div.ui.image {
     /* overflow: hidden; */
 }

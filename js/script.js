@@ -39,96 +39,32 @@ function m(value, max, main) {
         x = x / y;
     return x > main ? main : x;
 }
-
-function pgInit(res) {
-    window.MOVIE_LISTS = res
-    pg = document.querySelector('div.pg')
-    pg.set = function (p = 0, test) {
-        if (typeof p !== "number") {
-            p = 0
-        }
-        if (p > this.max) {
-            p = this.max
-        }
-        if (1 > p) {
-            p = 1
-        }
-        !test && (this.cr = p)
-
-        // console.log(m);
-
-        p = m(p, this.max, 100)
-        !test && (this.text.innerText = `${this.cr} of ${this.max}`) || (this.text.innerText = ``)
-        this.range.style.width = `${p}%`
-        // console.log(p);
-    }
-
-    pg.range = pg.querySelector('.bar')
-    pg.wrapper = pg.querySelector('.pgwp')
-    pg.text = pg.range.querySelector('.progress')
-    pg.max = res.pg_length
-    var cr = res.pg_current
-    // cr = 30
-    pg.cr = cr
-    // console.log(cr);
-    pg.set(cr)
+function initPG({pg_length,pg_current}){
+    pg_current=62
+    var _cr = pg_current;
+    if(_cr>1)_cr-=1
+    var n=3;
+    var cr = pg_length-_cr;
+    var st = _cr
+    var en=(pg_length-n);
+    // var st = (cr-(en))+_cr
+if(st>en){
+en=pg_current
 }
-function pgR() {
-    if (MOVIE_LISTS.next) {
-        location.href = "./#/movies?" + btoa(MOVIE_LISTS.next)
+    var obj={start: st,len:n,current:pg_current}
+    if (cr>3&&(en>pg_current)) {
+        obj.end=en
     }
-return
-    //console.log(xjs);
-    pg.wrapper.style.pointerEvents = 'none'
-    var w = pg.range.offsetWidth + "px"
-    pg.range.style.width = '100%'
-    setTimeout(function () {
-        pg.range.style.width = w
-        setTimeout(function () {
-            pg.set(pg.cr += 1)
-            setTimeout(function () {
-                pg.wrapper.style.pointerEvents = ''
-            }, 300)
-        }, 300)
-    }, 300)
+    console.log(obj);
+    return obj
 }
-function pgL() {
-    if(MOVIE_LISTS.prev) {
-        location.href = "./#/movies?" + btoa(MOVIE_LISTS.prev)
-    }
-    var m = pg.range.style.minWidth
-    var rw = gw(pg.range.style.width, m)
-    var w = per(rw).join("")
-    var w1 = per(rw, 2).join("")
-    // console.log(w,w1);
-    var w1 = "60%"
-    pg.range.style.minWidth = "0"
-    pg.range.style.width = '20%'
-    pg.wrapper.style.pointerEvents = 'none'
-    // pg.text.style.pointerEvents = 'none'
-    // pg.text.style.opacity="0"
-    setTimeout(function () {
-        // pg.text.style.opacity = ""
-        // pg.text.style.pointerEvents = ""
-        pg.range.style.width = w1
-        setTimeout(function () {
-            pg.range.style.width = w
-            setTimeout(function () {
-                pg.set(pg.cr -= 1)
-                pg.range.style.minWidth = m
-                setTimeout(function () {
-                    pg.wrapper.style.pointerEvents = ''
-                }, 100)
-            }, 300)
-        }, 300)
-    }, 300)
-}
+
 function search(node) {
     var v = node.value.trim()
     if(!v) return
 var p=node.parentNode
     p.classList.add('loading')
-    href('movies?' + btoa(api_url(`/movies/search/name/`+encodeURIComponent(v))))
+    href('movies/search/name?' + v)
     setTimeout(function() {
         p.classList.remove('loading')
     },2000)
@@ -226,8 +162,14 @@ window.onhashchange = function () {
     var  path="";
     try {
         path = route(location.hash)
-        path=path.split(/\||\?/)
-        query = atob(path[1] || '').trim()
+        path=path.split(/[\?\|]([^]+)/);
+        query=(path[1] || location.search.replace(/^\?/,"")).trim();
+        query=decodeURIComponent(query)
+        // console.log(query);
+        // try {
+            // query = atob(query).trim()
+        // } catch (error) {}
+
         path = path[0].trim()
 
         for (var i = 0; i < routes.length; i++) {
