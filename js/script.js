@@ -8,9 +8,11 @@ btoa = function () {
 atob = function () {
     return decodeURIComponent(_atob(arguments[0]))
 }
-
+function toHref(e){
+    return './#/'+e.replace(/^[\\\/]/,'')
+}
 function href(e) {
-    location.href='./#/'+e
+    location.href=toHref(e)
 }
 function per(v, n = 0) {
     if (v instanceof Array) {

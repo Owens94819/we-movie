@@ -349,3 +349,18 @@ div.search>i.icon:before {
         justify-content: center;
     }
 }
+@media only screen and (max-width: 462px) {
+    .pg .case-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+        width: 100%;
+        border-radius: 0;
+        justify-content: center;
+    }
+    .pg{
+        padding: 0;
+    }
+    .pg>.case-wrapper>.case{
+        border-radius: 6px;
+    }
+}
