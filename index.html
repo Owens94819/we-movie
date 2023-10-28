@@ -84,7 +84,6 @@
         <?title: "Movies | "+query[0]?>
         <?eval: query=`${encodeURIComponent(query[0])}?pg=${encodeURIComponent(query[1])||1}`?>
         <?eval: query=api_url(`/movies/search/name/`+query)?>
-        <?console-log:path,query?>
         <?use-template: "movies"?>
     </template>
     <template path="/updated-movies?">
