@@ -82,8 +82,9 @@
          path = path+"?"+query[0]
         ?>
         <?title: "Movies | "+query[0]?>
-        <?eval: query=`${encodeURIComponent(query[0])}?pg=${encodeURIComponent(query[1])||1}`?>
-        <?eval: query=api_url(`/movies/search/name/`+query)?>
+        <?eval: query=`${encodeURIComponent(query[0])}?pg=${Number(query[1])||1}` ?>
+        <?eval: query=api_url(`/movies/search/name/get/`+query) ?>
+        <?eval: console.log(query) ?>
         <?use-template: "movies"?>
     </template>
     <template path="/updated-movies?">
@@ -223,7 +224,7 @@
     <!-- <base href=" http://localhost:2000"> -->
     <script>
         //  document.baseURI=location.href
-        window.movie=new Movie();
+        window.movie=new Movie(); 
   if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
     const {hostname,protocol}=location;
     // movie.api=`${protocol}//${hostname}:2000/v1/`

@@ -6,7 +6,7 @@
         <!-- <h2><?print: movie.name?></h2> -->
         <div class="item">
             <div class="ui image pending">
-                <?html-element: 'img',{src:movie["image"], onload:"imgLoad(this.parentNode)", xonerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
+                <?html-element: 'img',{src:movie["image"], onload:"imgLoad(this.parentNode)", onerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
                 <!-- <?eval: node.style.cssText='min-height:inherit;min-width:169px;background-color:gray;'?> -->
                 <?end?>
             </div>
