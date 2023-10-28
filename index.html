@@ -227,7 +227,7 @@
         window.movie=new Movie(); 
   if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
     const {hostname,protocol}=location;
-    // movie.api=`${protocol}//${hostname}:2000/v1/`
+     movie.api=`${protocol}//${hostname}:2000/v1/`
     console.log("TESTING MODE");
   }
         function api_url(path) {
