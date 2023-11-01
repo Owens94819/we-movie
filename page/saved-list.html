@@ -13,7 +13,7 @@
                <div class="imdb-rating node">
                   <?use-template: "imdb"?>
                </div>
-               <?html-element: "img", {src:movie.image, lowsrc:movie["image-thumb"]}?> <?end?>
+               <?html-element: "img", {src:movie.image, lowsrc:movie["image-thumb"], onerror:imgErr}?> <?end?>
                <div class="title node">
                   <?use-template: "movieName"?>
                </div>

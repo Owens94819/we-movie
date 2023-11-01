@@ -105,7 +105,7 @@ function watchLater(movie, node){
         } else {
             watchLaterStorage.removeItem(movie.id)
             node.classList.remove('red')
-           node.innerText = "Save to Watch later"
+           node.innerText = "save..."
         }
     });
 }
@@ -132,6 +132,9 @@ function frame(node,movie) {
     }
     // n.style.border = "1px solid red"
 
+}
+function imgErr() {
+    this.src='asset/wireframe/thumb-issue.svg'
 }
 function imgLoad(node){
     node.classList.remove('pending')

@@ -6,7 +6,7 @@
                     <div class="ui black ribbon label" style="left: -1rem;">
                         <?print: movie.meta.date&&(new Date(movie.meta.date)).toDateString()||movie.year?>
                     </div>
-                    <?html-element: 'img',{style:"min-height:442px",src:movie["image-thumb"], xonerror:"this.src='asset/wireframe/thumb-issue.svg'", xsrc:"asset/Hard.Feelings.2023.jpg"}?>
+                    <?html-element: 'img',{style:"min-height:442px",src:movie["image-thumb"], onerror:imgErr}?>
                     <?end?>
                     <?if: movie.tags.length?>
                     <div class="content">

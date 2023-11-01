@@ -219,13 +219,10 @@
     </template>
 
     <script src="lib/xjsx.js"></script>
-    <!-- <script src="/lib/xjsx-min.js"></script> -->
     <script src="js/XJSX-module.js"></script>
     <script src="js/movie-api.js"></script>
     <script src="js/Storage.js"></script>
-    <!-- <base href=" http://localhost:2000"> -->
     <script>
-                //  document.baseURI=location.href
                 window.movie=new Movie(); 
         if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
             const {hostname,protocol}=location;
@@ -287,8 +284,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <base href="https://api-pe5f.onrender.com/my-google-drive/ui"> -->
-
     <!-- creates a title tag
     <title>...</title>
     -->
@@ -320,10 +315,17 @@
             </header>
             <div class="content">
                 <?if: !window.XJSX?>
-                    <div class="pad">
-                        <h1>Source Error</h1>
+                    <div class="pad" style="text-align: unset;">
+                        <div>
+                        <h2>Source Error</h2>
                         <p>The javascript needed to run this application was not found.</p>
-                        <p>pleas make sure javascript is enabled</p>
+                        Try:
+                        <ul>
+                            <li>Making sure javascript is enabled</li>
+                            <li>Checking the connection</li>
+                            <li>Reload this page again</li>
+                        </ul>
+                        </div>
                     </div>
                 <?else?>
                     <?initialize?>
