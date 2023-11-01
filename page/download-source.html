@@ -5,7 +5,7 @@
   <?then: {response}?>
     Almost there...
     <??eval: alert(JSON.stringify(response))?>
-    <?eval: location.replace("./#/download|"+encodeURIComponent(response.file))?>
+    <?eval: location.replace("./#/download?"+encodeURIComponent(response.file))?>
   <?catch?>
     Oops error, try reload this page again!
   <?end?>

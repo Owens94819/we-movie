@@ -341,8 +341,19 @@ div.search>i.icon:before {
 }
 
 .des{
-    max-height: 200px;
+    height: 100px;
     overflow: hidden;
+    position: relative;
+}
+.des::after{
+    content: "";
+    display: block;
+    background: linear-gradient(0deg, #e2e2e2 0%, transparent 100%);
+    width: 100%;
+    height: 28px;
+    position: absolute;
+    bottom: -1px;
+    backdrop-filter: blur(1px);
 }
 @media only screen and (max-width: 522px) {
     .saved-list {

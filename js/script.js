@@ -66,7 +66,7 @@ function search(node) {
     if(!v) return
 var p=node.parentNode
     p.classList.add('loading')
-    href('movies/search/name?' + v)
+    href('movies/search/name/' + v)
     setTimeout(function() {
         p.classList.remove('loading')
     },2000)
@@ -172,8 +172,7 @@ window.onhashchange = function () {
             // query = atob(query).trim()
         // } catch (error) {}
 
-        path = path[0].trim()
-
+        path = decodeURIComponent(path[0].trim())
         for (var i = 0; i < routes.length; i++) {
             var r=routes[i]
             var p = (new RegExp('^' + r.getAttribute('path') + '$')).test(path)
@@ -194,7 +193,8 @@ window.onhashchange = function () {
             document.querySelector(`template[sys="error"]`)
     }
    // console.log(template);
-    emit('pagechange', { template: template, path: path, query: query })
+   _path=path.split("/");
+    emit('pagechange', { template: template, path: path,_path:_path, size:_path.length&&_path.length-1, query: query })
 }
 
 var { event: { emit, emitData, on } } = XJSX;

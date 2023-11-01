@@ -76,14 +76,16 @@
         
         <?use-template: "movies"?>
     </template>
-    <template path="/movies?/search/name">
+    <template path="/movies?/search/(name|director|starcast|tag|genre)/[^\/]+">
         <?eval: 
-         query=query.split("?");
-         path = path+"?"+query[0]
+         query=Number(query)||1;
+         var name = _path[size];
+         var type = _path[size-1];
+         if(type) type=type.toLowerCase();
         ?>
-        <?title: "Movies | "+query[0]?>
-        <?eval: query=`${encodeURIComponent(query[0])}?pg=${Number(query[1])||1}` ?>
-        <?eval: query=api_url(`/movies/search/name/get/`+query) ?>
+        <?title: "Movies | "+name?>
+        <?eval: query=`${encodeURIComponent(name)}?pg=${query}` ?>
+        <?eval: query=api_url(`/movies/search/${type}/`+query) ?>
         <?eval: console.log(query) ?>
         <?use-template: "movies"?>
     </template>
@@ -137,7 +139,7 @@
     </template>
     <template id="landing">
         <?on: 'pagechange'; {detail}?>
-        <?eval: var {query,path,template} =detail;?>
+        <?eval: var {query,path,template,_path,size} =detail;?>
         <?use-template: template?>
         <?end?>
     </template>
@@ -223,13 +225,13 @@
     <script src="js/Storage.js"></script>
     <!-- <base href=" http://localhost:2000"> -->
     <script>
-        //  document.baseURI=location.href
-        window.movie=new Movie(); 
-  if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
-    const {hostname,protocol}=location;
-     movie.api=`${protocol}//${hostname}:2000/v1/`
-    console.log("TESTING MODE");
-  }
+                //  document.baseURI=location.href
+                window.movie=new Movie(); 
+        if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
+            const {hostname,protocol}=location;
+            movie.api=`${protocol}//${hostname}:2000/v1/`
+            console.log("TESTING MODE");
+        }
         function api_url(path) {
             if (path.match(/^[a-z]+:/i)) {
                 return path

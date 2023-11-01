@@ -87,7 +87,7 @@ div.ui.cards>.card>.image>img {
 }
 
 .ui.cards {
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-between;
 }
 

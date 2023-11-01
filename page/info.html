@@ -1,152 +1,148 @@
 <!-- <?console-log: movie?> -->
 
 <?if: movie.id?>
-<div class="pad none">
-    <div class="ui relaxed items">
-        <!-- <h2><?print: movie.name?></h2> -->
-        <div class="item">
-            <div class="ui image pending">
-                <?html-element: 'img',{src:movie["image"], onload:"imgLoad(this.parentNode)", onerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
-                <!-- <?eval: node.style.cssText='min-height:inherit;min-width:169px;background-color:gray;'?> -->
-                <?end?>
-            </div>
-            <div class="middle aligned content">
-                <div class="description" style="max-width:400px;">
-                    <table class="ui celled striped table unstackable" id="tb">
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                                    <?print: movie.name?>
-                                    <div class="meta">
-                                        <font style="font-weight: 400;">
-                                            <?if: movie.datePublished ?>
-                                            <?print: new Date(movie.datePublished).toLocaleDateString()?>
-                                            <?else?>
-                                            n/A
-                                            <?end?>
-                                        </font>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Plot</td>
-                                <td>
-                                    <?print: movie.plot|| "n/A"?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="collapsing"><i class="icon imdb"></i>IMDB</td>
-                                <td>
-                                    <?use-template: "imdb"?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Published Date</td>
-                                <td><?print: movie.datePublished|| "n/A"?></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <?html-element: 'a', {href:"./#/info/more?"+encodeURIComponent(JSON.stringify(movie))}?>
-                                      See all
-                                    <?end?>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <span cstyle="display: flex;align-items: center;line-height: 0;">
-                      
-                    </span>
+    <div class="pad none">
+        <div class="ui relaxed items">
+            <!-- <h2><?print: movie.name?></h2> -->
+            <div class="item">
+                <div class="ui image pending">
+                    <?html-element: 'img',{src:movie["image"], onload:"imgLoad(this.parentNode)", onerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
+                    <!-- <?eval: node.style.cssText='min-height:inherit;min-width:169px;background-color:gray;'?> -->
+                    <?end?>
                 </div>
-                <!-- <div class="extra">
-                    <div class="ui left floated button">Action</div>
-                </div> -->
-                <?use-template: "save"?>
+                <div class="middle aligned content">
+                    <div class="description" style="max-width:400px;">
+                        <table class="ui celled striped table unstackable" id="tb">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        <?print: movie.name?>
+                                        <div class="meta">
+                                            <font style="font-weight: 400;">
+                                                <?if: movie.datePublished ?>
+                                                <?print: new Date(movie.datePublished).toLocaleDateString()?>
+                                                <?else?>
+                                                n/A
+                                                <?end?>
+                                            </font>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Plot</td>
+                                    <td>
+                                        <?print: movie.plot|| "n/A"?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="collapsing"><i class="icon imdb"></i>IMDB</td>
+                                    <td>
+                                        <?use-template: "imdb"?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Published Date</td>
+                                    <td><?print: movie.datePublished|| "n/A"?></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?html-element: 'a', {href:"./#/info/more?"+encodeURIComponent(JSON.stringify(movie))}?>
+                                        See all
+                                        <?end?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span cstyle="display: flex;align-items: center;line-height: 0;">
+                        
+                        </span>
+                    </div>
+                    <!-- <div class="extra">
+                        <div class="ui left floated button">Action</div>
+                    </div> -->
+                    <?use-template: "save"?>
+                </div>
             </div>
         </div>
-    </div>
 
-    <br>
-        <div class="ui horizontal divider">Downloads</div>
+        <br>
+            <div class="ui horizontal divider">Downloads</div>
 
-        <div class="ui  list">
-            <?for-each: movie.downloads;v?>
-            <div class="item">
-                <i class="icon folder"></i>
-                <div class="content">
-                    <div class="header"><?print: v._type?></div>
-                    <div class="list">
-                        <?for-each: v.files;v,i1?>
-                         <div class="item">
+            <div class="ui  list">
+                <?for-each: movie.downloads;v?>
+                        <div class="item">
                             <i class="icon folder"></i>
                             <div class="content">
-                                 <div class="header">Files (<?print: i1+1?>)</div>
+                                <div class="header"><?print: v._type?></div>
                                 <div class="list">
-                                    <?for-each: v;v,i2?>
-                                    <div class="item">
-                                        <i class="icon file video outline"></i>
-                                        <div class="content">
-                                            <?html-element:'a',{href:"./#/download/source|"+encodeURIComponent(`/${i1}/${i2}/`+v.id)}?>
-                                             <?print:v.name?>
-                                            <?end?>
-                                            <div class="description" style="font-size: 14px;">
-                                                size: <?print: v.size?>, hits: <?print: v.hits?>, quality: <?print: v.tag?>
+                                    <?for-each: v.files;v,i1?>
+                                        <div class="item">
+                                            <i class="icon folder"></i>
+                                            <div class="content">
+                                                <?if: v.length?>
+                                                    <div class="header">Files (<?print: i1+1?>)</div>
+                                                    <div class="list">
+                                                        <?for-each: v;v,i2?>
+                                                            <div class="item">
+                                                                <i class="icon file video outline"></i>
+                                                                <div class="content">
+                                                                    <?html-element:'a',{href:"./#/download/source?"+encodeURIComponent(`/${i1}/${i2}/`+v.id)}?>
+                                                                    <?print:v.name?>
+                                                                    <?end?>
+                                                                    <div class="description" style="font-size: 14px;">
+                                                                        size: <b> <?print: v.size?> </b>, hits: <b> <?print: v.hits?> </b>, quality: <b> <?print: v.tag?> </b>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?end?>
+                                                    </div>
+                                                <?end?>
                                             </div>
                                         </div>
-                                    </div>
                                     <?end?>
                                 </div>
                             </div>
-                         </div>
-                        <?end?>
-                    </div>
-                </div>
+                        </div>
+                <?end?>
             </div>
-            <?end?>
-        </div>
 
 
 
-    <?if: movie.trailerHTML?>
-        <div class="ui horizontal divider">Trailer</div>
-        <!-- <i class="icon play"></i> -->
-        <div class="iframe loading">
-            <?html-element: 'iframe'; node?>
-            <?eval: frame(node,movie)?>
-            <?end?>
-        </div>
-    <?end?>
+        <?if: movie.trailerHTML?>
+            <div class="ui horizontal divider">Trailer</div>
+            <!-- <i class="icon play"></i> -->
+            <div class="iframe loading">
+                <?html-element: 'iframe'; node?>
+                <?eval: frame(node,movie)?>
+                <?end?>
+            </div>
+        <?end?>
 
-      <!--?if: movie.recommended&&movie.recommended.length>0?-->
-        <div class="ui horizontal divider">Recommended</div>
-        <div class="ui massive horizontal divided middle aligned animated list">
-            <?for-each: movie.recommended; movie?>
-                <div class="item">
-                        <!-- <?html-element: 'a', {href:"./#/info?"+encodeURIComponent(movie.id)}?> -->
-                        <?html-element: 'img',{src:movie["image"], class:"ui avatar image", xonerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
-                            <?eval: node.onclick = function(){location.href="./#/info?"+encodeURIComponent(movie.id)} ?>
-                            <?eval: node.style.cssText='height:auto;border-radius:5px;' ?>
-                        <?end?>
-                        <!-- <?end?> -->
-                        <?html-element: 'a', {class:'content',href:"./#/info?"+encodeURIComponent(movie.id)}?>
-                            <a class="header" style="margin-top: 10px; font-weight: 400;font-size: 16px; max-width: 180px;"><?print: movie.name?></a>
-                            <div class="description" tabindex="0" style="font-size: 14px;">
-                                    IMDB:
-                                    <?use-template: "imdb"?>
-                            </div>
-                        <?end?>
-                        <br>
-                        <?use-template: "save"?>
-                </div>
-            <?end?>
-        </div>
-        
+        <!--?if: movie.recommended&&movie.recommended.length>0?-->
+            <div class="ui horizontal divider">Recommended</div>
+            <div class="ui massive horizontal divided middle aligned animated list">
+                <?for-each: movie.recommended; movie?>
+                    <div class="item">
+                            <?html-element: 'img',{src:movie["image"], class:"ui avatar image", xonerror:"this.src='asset/wireframe/thumb-issue.svg'"}; node?>
+                                <?eval: node.onclick = function(){location.href="./#/info?"+encodeURIComponent(movie.id)} ?>
+                                <?eval: node.style.cssText='height:auto;border-radius:5px;' ?>
+                            <?end?>
+                            <?html-element: 'a', {class:'content',href:"./#/info?"+encodeURIComponent(movie.id)}?>
+                                <a class="header" style="margin-top: 10px; font-weight: 400;font-size: 16px; max-width: 180px;"><?print: movie.name?></a>
+                                <div class="description" tabindex="0" style="font-size: 14px;">
+                                        IMDB:<?use-template: "imdb"?>
+                                </div>
+                            <?end?>
+                            <br>
+                            <?use-template: "save"?>
+                    </div>
+                <?end?>
+            </div>
         <!--?end?-->
-
-
-</div>
+    </div>
 <?else?>
- <?use-template: "empty"?>
+    <?use-template: "empty"?>
 <?end?>

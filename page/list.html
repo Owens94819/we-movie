@@ -1,6 +1,6 @@
 <!--?if: response.data && response.data.length>0 ?-->
     <div class="ui two doubling cards">
-        <?for-each: response.data,100; movie?>
+        <?for-each: response.data, 0; movie?>
             <div class="card" id="c">
                 <div class="ui image">
                     <div class="ui black ribbon label" style="left: -1rem;">
@@ -12,12 +12,11 @@
                     <div class="content">
                         <b>Tags:</b>
                         <?for-each: movie.tags; tag, i?>
-                        <a>
-                            <?print: tag.name.toLowerCase()?>
-                        </a>
-                        <?if: i!==movie.tags.length-1?>|
-                        <?end?>
-                        <!-- <?console-log: tag?> -->
+                            <?html-element: 'a',{href:toHref("movies/search/tag/"+tag.name)}?>
+                             <?print: tag.name.toLowerCase()?>
+                            <?end?>
+                            <?if: i!==movie.tags.length-1?>|<?end?>
+                            <!-- <?console-log: tag?> -->
                         <?end?>
                     </div>
                     <?end?>
@@ -26,17 +25,15 @@
                     <div class="header">
                         <?print: movie.title?>
                         <?if:movie.type?>
-                        <sup style="opacity: 0.7;">(
-                            <?print: movie.type?>)
-                        </sup>
+                        <sup style="opacity: 0.7;">(<?print: movie.type?>)</sup>
                         <?end?>
                     </div>
                     <?if:movie.meta.director?>
                     <div class="meta">
                         <!-- <?console-log: movie?> -->
-                        <a>
-                            <?print: sanitize(movie.meta.director)?>
-                        </a>
+                        <?html-element: 'a',{href:toHref("movies/search/director/"+movie.meta.director)}?>
+                         <?print: movie.meta.director?>
+                        <?end?>
                     </div>
                     <?end?>
                     <div class="description">
@@ -45,19 +42,19 @@
                             <?print: "No description available at the moment"?>
                         </span>
                         <?else?>
-                        <!-- <div class="des"> -->
+                        <div class="des">
                             <?print: movie.description?>
-                        <!-- </div> -->
+                        </div>
                         <?end?>
                         <br>
                         <div class="ui mini buttons" style="margin-top: 8px;">
                             <?html-element: 'button',{class:'ui button primary dropdown simple'}?>
                             Instant download
                             <div class="menu" tabindex="-1">
-                            <?html-element: 'a',{href:"./#/download/source?"+encodeURIComponent(api_url("/download/direct/source/0/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            <?html-element: 'a',{href:"./#/download/source?"+encodeURIComponent("/0/0/"+movie.id+'?cat=--hmp4.htm'),class:'item'}?>
                             420p
                             <?end?>
-                            <?html-element: 'a',{href:"./#/download/source?"+encodeURIComponent(api_url("/download/direct/source/1/0/"+movie.id+'?cat=--hmp4.htm')),class:'item'}?>
+                            <?html-element: 'a',{href:"./#/download/source?"+encodeURIComponent("/1/0/"+movie.id+'?cat=--hmp4.htm'),class:'item'}?>
                             720p
                             <?end?>
                             </div>
@@ -71,7 +68,7 @@
                         <?html-element: 'a',{href:"./#/ref?"+encodeURIComponent(movie.meta['imdb-profile'])}?>imdb&nbsp;profile
                         <?end?>
                         |
-                        <?html-element: 'a',{href:"./#/ref?"+decodeURIComponent(movie['origin'])}?>fzmovies&nbsp;profile
+                        <?html-element: 'a',{href:"./#/ref?"+encodeURIComponent(movie['origin'])}?>fzmovies&nbsp;profile
                         <?end?>
                     </div>
                     <div class="extra content" style="display: flex;align-items: center;justify-content: space-between;">
