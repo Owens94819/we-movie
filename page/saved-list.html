@@ -1,19 +1,18 @@
-<?eval: var list = watchLaterStorage.getAllItem()?>
+<?eval: var list = watchLaterStorage.getAllItem();?>
 <?await: list?>
    <?use-template: loading?>
 <?then: res?>
-   <?eval: var len = 0 ?>
-
+   <?eval: var len = 0; ?>
    <div class="saved-list">
       <?for-each: res, 0; movie?>
-      <!-- <?console-log: movie?> -->
+         <!-- <?console-log: movie?> -->
          <?eval: len+=1 ?>
          <?html-element: "a", {class:"saved-wrapper", href:"./#/info?"+movie.id} ?>
             <div class="image">
                <div class="imdb-rating node">
                   <?use-template: "imdb"?>
                </div>
-               <?html-element: "img", {src:movie.image, lowsrc:movie["image-thumb"], onerror:imgErr}?> <?end?>
+               <?html-element: "img", {src:movie.image, lowsrc: movie["image-thumb"], onerror:imgErr}?> <?end?>
                <div class="title node">
                   <?use-template: "movieName"?>
                </div>
@@ -22,6 +21,7 @@
          <?end?>
       <?end?>
    </div>
+
 
    <?if: len === 0 ?>
       <?use-template: "empty"?>
