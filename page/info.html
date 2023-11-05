@@ -80,27 +80,27 @@
                                 <div class="list">
                                     <?for-each: v.files;v,i1?>
                                         <div class="item">
-                                            <i class="icon folder"></i>
-                                            <div class="content">
-                                                <?if: v.length?>
-                                                    <div class="header">Files (<?print: i1+1?>)</div>
-                                                    <div class="list">
-                                                        <?for-each: v;v,i2?>
-                                                            <div class="item">
-                                                                <i class="icon file video outline"></i>
-                                                                <div class="content">
-                                                                    <?html-element:'a',{href:"./#/download/source?"+encodeURIComponent(`/${i1}/${i2}/`+v.id)}?>
-                                                                    <?print:v.name?>
-                                                                    <?end?>
-                                                                    <div class="description" style="font-size: 14px;">
-                                                                        size: <b> <?print: v.size?> </b>, hits: <b> <?print: v.hits?> </b>, quality: <b> <?print: v.tag?> </b>
+                                            <?if: v.length?>
+                                                <i class="icon folder"></i>
+                                                <div class="content">
+                                                        <div class="header">Files (<?print: i1+1?>)</div>
+                                                        <div class="list">
+                                                            <?for-each: v;v,i2?>
+                                                                <div class="item">
+                                                                    <i class="icon file video outline"></i>
+                                                                    <div class="content">
+                                                                        <?html-element:'a',{href:"./#/download/source?"+encodeURIComponent(`/${i1}/${i2}/`+v.id)}?>
+                                                                        <?print:v.name?>
+                                                                        <?end?>
+                                                                        <div class="description" style="font-size: 14px;">
+                                                                            size: <b> <?print: v.size?> </b>, hits: <b> <?print: v.hits?> </b>, quality: <b> <?print: v.tag?> </b>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        <?end?>
+                                                            <?end?>
+                                                        </div>
                                                     </div>
-                                                <?end?>
-                                            </div>
+                                            <?end?>
                                         </div>
                                     <?end?>
                                 </div>
