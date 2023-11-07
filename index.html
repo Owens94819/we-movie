@@ -197,13 +197,13 @@
                     <?end?>
                 <!--?end?-->
                 <?html-element:"input", {
-                    type:"number",
-                    class:"case a",
-                    placeholder:"Index",
-                    value:pg_current,
-                    max:pg_length, 
+                    type: "number",
+                    class: "case a",
+                    placeholder: "Index",
+                    value: pg_current,
+                    max: pg_length, 
                     min:1,
-                    maxLength:pg_length.toString().length,
+                    maxLength: pg_length.toString().length,
                     onchange: function(){href(path+"?"+this.valueAsNumber)}
                 }?>
                 <?end?>
@@ -226,7 +226,7 @@
                 window.movie=new Movie(); 
         if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
             const {hostname,protocol}=location;
-            // movie.api=`${protocol}//${hostname}:2000/v1/`
+            movie.api=`${protocol}//${hostname}:2000/v1/`
             console.log("TESTING MODE");
         }
         function api_url(path) {
@@ -260,22 +260,22 @@
          * ...
          * **/
         var pageTemplates = XJSX.createTemplate({
-            "error": pageFetch("page/error.html"),
-            "404": pageFetch("page/404.html"),
-            list: pageFetch("page/list.html"),
-            download: pageFetch("page/download.html"),
-            "download-source": pageFetch("page/download-source.html"),
-            movies: pageFetch("page/movies.html"),
-            "saved-list": pageFetch("page/saved-list.html"),
-            info: pageFetch("page/info.html"),
-            empty: pageFetch("page/empty.html"),
-            imdb: pageFetch("page/imdb.html"),
-            save: pageFetch("page/save.html"),
-            "more-info": pageFetch("page/more-info.html"),
-            "preview-image": pageFetch("page/preview-image.html"),
-            "trailer": pageFetch("page/trailer.html"),
-            "movieError": pageFetch("page/movie-error.html"),
-            ref: pageFetch("page/ref.html")
+            "error": pageFetch("page/error.xjsx"),
+            "404": pageFetch("page/404.xjsx"),
+            list: pageFetch("page/list.xjsx"),
+            download: pageFetch("page/download.xjsx"),
+            "download-source": pageFetch("page/download-source.xjsx"),
+            movies: pageFetch("page/movies.xjsx"),
+            "saved-list": pageFetch("page/saved-list.xjsx"),
+            info: pageFetch("page/info.xjsx"),
+            empty: pageFetch("page/empty.xjsx"),
+            imdb: pageFetch("page/imdb.xjsx"),
+            save: pageFetch("page/save.xjsx"),
+            "more-info": pageFetch("page/more-info.xjsx"),
+            "preview-image": pageFetch("page/preview-image.xjsx"),
+            "trailer": pageFetch("page/trailer.xjsx"),
+            "movieError": pageFetch("page/movie-error.xjsx"),
+            ref: pageFetch("page/ref.xjsx")
         })
  
     </script>

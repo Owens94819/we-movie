@@ -1,6 +1,7 @@
 <div class="pad">
     <h1>Unknown Error</h1>
-    <p>Application crashed while trying to render you 
+    <p>
+    Application crashed while trying to render you 
     <?if: path?> 
         the path at <?use-template: "pathName"?>
     <?else?>

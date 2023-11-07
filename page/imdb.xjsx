@@ -1,0 +1,14 @@
+<?fetch: movie["imdb-rating"], {type:'json'}?>
+    loading...
+<?then: {response}?>
+    <?if: response?>
+        <b>
+            <?print: response.rating?>
+            <sub style="opacity: 0.7;">| <?print: num(response.ratingCount)?>&nbsp;votes</sub>
+        </b>
+    <?else?>
+        n/A
+    <?end?>
+<?catch?>
+    ratings unavailable
+<?end?>
