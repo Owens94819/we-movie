@@ -139,8 +139,7 @@
     </template>
     <template id="landing">
         <?on: 'pagechange'; {detail}?>
-        <?eval: var {query,path,template,_path,size} =detail;?>
-        <?use-template: template?>
+         
         <?end?>
     </template>
     <template id="menu-list">
@@ -185,37 +184,37 @@
     </template>
     <template id="pg">
         <!--?if: pg_length > 1 ?-->
-        <div class="pg">
-            <div class="case-wrapper">
-                <?var: maxcase = 3?>
-                <?html-element:"a", {class:"case", href: toHref(path+"?"+(pg_current+1))}?>
-                 Next
-                <?end?>
-                <!--?if: pg_current > 1?-->
-                    <?html-element:"a", {class:"case", href: toHref(path+"?"+(pg_current-1))}?>
-                      Prev
+            <div class="pg">
+                <div class="case-wrapper">
+                    <?var: maxcase = 3?>
+                    <?html-element:"a", {class:"case", href: toHref(path+"?"+(pg_current+1))}?>
+                     Next
                     <?end?>
-                <!--?end?-->
-                <?html-element:"input", {
-                    type: "number",
-                    class: "case a",
-                    placeholder: "Index",
-                    value: pg_current,
-                    max: pg_length, 
-                    min:1,
-                    maxLength: pg_length.toString().length,
-                    onchange: function(){href(path+"?"+this.valueAsNumber)}
-                }?>
-                <?end?>
-                <?for-each: maxcase;i?>
-                    <?var: n=(pg_length-maxcase)+(i+1)?>
-                    <?html-element:"a", {class:"case", disable:n===pg_current, href: toHref(path+"?"+n)}?>
-                    <?print: n?>
+                    <!--?if: pg_current > 1?-->
+                        <?html-element:"a", {class:"case", href: toHref(path+"?"+(pg_current-1))}?>
+                        Prev
+                        <?end?>
+                    <!--?end?-->
+                    <?html-element:"input", {
+                        type: "number",
+                        class: "case a",
+                        placeholder: "Index",
+                        value: pg_current,
+                        max: pg_length, 
+                        min:1,
+                        maxLength: pg_length.toString().length,
+                        onchange: function(){href(path+"?"+this.valueAsNumber)}
+                    }?>
                     <?end?>
-                <?end?>
+                    <?for-each: maxcase;i?>
+                        <?var: n=(pg_length-maxcase)+(i+1)?>
+                        <?html-element:"a", {class:"case", disable:n===pg_current, href: toHref(path+"?"+n)}?>
+                        <?print: n?>
+                        <?end?>
+                    <?end?>
+                </div>
             </div>
-        </div>
-    <!--?end?-->
+        <!--?end?-->
     </template>
 
     <script src="lib/xjsx.js"></script>

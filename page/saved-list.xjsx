@@ -26,11 +26,5 @@
    <?if: len === 0 ?>
       <?use-template: "empty"?>
    <?end?>
-   <script>
-   var s= 900;
-   class jjj {
-
-      }
-   </script>
 <?end?>
 
