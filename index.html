@@ -91,17 +91,17 @@
     </template>
     <template path="/updated-movies?">
         <?title: "Movies | Updated"?>
-        <?eval: var query = api_url("/movies/list?by=latest")?>
+        <?eval:  query = api_url("/movies/list?by=latest&pg="+query)?>
         <?use-template: "movies"?>
     </template>
     <template path="/top-rated">
         <?title: "Movies | Top rated"?>
-        <?eval: var query = api_url("/movies/imdb-rating/8")?>
+        <?eval:  query = api_url("/movies/imdb-rating/8?pg="+query)?>
         <?use-template: "movies"?>
     </template>
     <template path="/imdb-250">
         <?title: "Movies | imdb top 250"?>
-        <?eval: var query = api_url("/movies/imdb-250")?>
+        <?eval:  query = api_url("/movies/imdb-250?pg="+query)?>
         <?use-template: "movies"?>
     </template>
     <template path="/saved-list?">
@@ -226,7 +226,7 @@
                 window.movie=new Movie(); 
         if (location.hostname.match(/localhost|127.0.0.1|192.168/)) {
             const {hostname,protocol}=location;
-            movie.api=`${protocol}//${hostname}:2000/v1/`
+        //    movie.api=`${protocol}//${hostname}:2000/v1/`
             console.log("TESTING MODE");
         }
         function api_url(path) {
