@@ -139,7 +139,9 @@
     </template>
     <template id="landing">
         <?on: 'pagechange'; {detail}?>
-         
+            <?eval: var {query,path,template} =detail;?>
+            <?eval: var {query,path,template,_path,size} =detail;?>
+            <?use-template: template?>
         <?end?>
     </template>
     <template id="menu-list">

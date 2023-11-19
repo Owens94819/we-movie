@@ -1,4 +1,3 @@
-
 <?fetch: query , {type:'json'}?>
     <?use-template: loading?>
 <?then: {response}?>
